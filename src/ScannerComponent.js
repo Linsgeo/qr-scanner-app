@@ -65,22 +65,14 @@ const ScannerComponent = (props) => {
     };
 
     const handleScan = (response) => {
-        console.log("resp", response);
 
         if (response) {
 
             if (!checkDuplicate(response.data) && checkValidCode(response.data)) {
                 props.getQRCode(response);
             }
-            //   let q = [...data];
-
-            //   q.push(response.data);
-            //   let uniq = [...new Set(q)];
-            //   setData(uniq);
-
-            //console.log("data", data);
+           
         }
-        // checkingState();
 
     };
 
@@ -91,12 +83,14 @@ const ScannerComponent = (props) => {
     return (
         <>
             {camState && (
+                <div>
                 <QrReader
                     delay={delay}
                     style={previewStyle}
                     onError={handleError}
                     onScan={handleScan}
                 />
+                </div>
             )}
             {qrError && qrError.length > 0 && (
                 <p style={{ textAlign: "center", color: 'red' }}>
@@ -116,7 +110,9 @@ const ScannerComponent = (props) => {
                     {camState ? "Switch off Camera" : "Switch on Camera"}
                 </button>
                 <button
-                    onClick={() => { clearList() }}
+                    onClick={() => {
+                        clearList()
+                    }}
                     style={{ height: '10%', width: '40%', padding: '2%', fontWeight: '700', backgroundColor: 'lightgrey' }}
                 >
                     Clear List

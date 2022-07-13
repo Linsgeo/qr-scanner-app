@@ -1,11 +1,13 @@
 import React, { useMemo, useState } from "react";
-import QRComponent from "./QRComponent";
 import ListComponent from "./ListComponent";
 import ScannerComponent from "./ScannerComponent";
+import { useMediaQuery } from 'react-responsive';
 
 function Home() {
   const [data, setData] = useState([]);
-
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 500px)'
+  })
   const getQRCode = (result) => {
     
     setData((prevData) => [...prevData, result.data]);
@@ -27,7 +29,7 @@ function Home() {
       <div>
         <h2 style={{ textAlign: "center" }}>QR Scanner</h2>
       </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div class="home" style={{ display: "flex", flexDirection:  isDesktopOrLaptop?"row":"column" }}>
         <div style={{ flex: 0.5, width: "100%", height: "100%" }}>
           <ScannerComponent
             getQRCode={getQRCode}
